@@ -1,0 +1,19 @@
+services:
+  web:
+    build: ./app
+    image: visitor-app:optimized
+    ports:
+      - "5000:5000"
+    environment:
+      REDIS_HOST: redis
+      CLUSTER_NAME: compose
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
